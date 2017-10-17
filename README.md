@@ -1,16 +1,6 @@
 
 # powershell_tasks
 
-Welcome to your new module. A short overview of the generated parts can be found in the PDK documentation at https://docs.puppet.com/pdk/1.0/pdk_generating_modules.html#module-contents .
-
-Below you'll find the default README template ready for some content.
-
-
-
-
-
-
-
 #### Table of Contents
 
 1. [Description](#description)
