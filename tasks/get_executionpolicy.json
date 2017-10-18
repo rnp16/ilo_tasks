@@ -1,7 +1,7 @@
 {
   "puppet_task_version": 1,
   "supports_noop": false,
-  "description": "Retrieve the server's execution policy.",
+  "description": "Retrieve the server's local execution policy.",
   "parameters": {
   }
 }
