@@ -6,6 +6,6 @@
     "policy": {
       "description": "Execution policy to be set on target system",
       "type": "Enum[AllSigned, Bypass, RemoteSigned, Restricted, Undefined, Unrestricted]"
-    },
+    }
   }
 }
