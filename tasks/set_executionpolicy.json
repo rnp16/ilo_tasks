@@ -1,7 +1,6 @@
 {
   "puppet_task_version": 1,
   "supports_noop": false,
-  "input_method": "powershell",
   "description": "Set the server's local execution policy",
   "parameters": {
     "policy": {
