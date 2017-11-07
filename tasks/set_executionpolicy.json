@@ -1,11 +1,15 @@
 {
   "puppet_task_version": 1,
   "supports_noop": false,
-  "description": "Set the server's local execution policy",
+  "description": "Set the server's LOCAL MACHINE execution policy",
   "parameters": {
     "policy": {
       "description": "Execution policy to be set on target system",
-      "type": "Enum[allsigned, bypass, remotesigned, restricted, undefined, unrestricted]"
+      "type": "Enum[AllSigned, Bypass, remotesigned, undefined, unrestricted]"
+    },
+    "scope": {
+      "description": "Execution policy to be set on target system",
+      "type": "Enum[currentuser, localmachine]"
     }
   }
 }

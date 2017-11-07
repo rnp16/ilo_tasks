@@ -4,7 +4,7 @@
   "author": "seant",
   "summary": "This module contains various tasks to execute useful Powershell snippets from the community.",
   "license": "Apache-2.0",
-  "source": "https://github.com/puppetlabs/pdk",
+  "source": "https://github.com/SeanTecha/powershell_tasks",
   "dependencies": [
 
   ],
