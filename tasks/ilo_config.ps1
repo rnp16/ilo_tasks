@@ -24,10 +24,10 @@ $group3NameArray = "CN=gs-snocadm,OU=SecGrps,OU=FE,DC=fenetwork,DC=com"
 
 
 #Main Function  
-$password = $password -AsSecureString 
+#$password = $password
 #Convert SecString to RegString
-$BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($password)
-$password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
+#$BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($password)
+#$password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
 
 
 $defaultDomain = "fenetwork.com"
