@@ -3,7 +3,7 @@
   "supports_noop": false,
   "description": "Set the server's LOCAL MACHINE execution policy",
   "parameters": {
-    "serverName": {
+    "servername": {
       "description": "default ILO name",
       "type": "String"
     },
