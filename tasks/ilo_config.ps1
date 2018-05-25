@@ -1,6 +1,15 @@
-$serverName = "" 
-$password = ""
-$newpassword = ""
+[CmdletBinding()]
+Param(
+  [Parameter(Mandatory = $False)]
+  [String]
+  $serverName = $env:PT_servername,
+  $password = $env:PT_pw,
+  $newpassword = $env:PT_newpw
+)
+
+#$serverName = "" 
+#$password = ""
+#$newpassword = ""
 
 #0 = FE, 1 = ESA, 2 = RTS
 $userContext1Array = @(
@@ -33,47 +42,17 @@ $group3NameArray = @(
 "CN=RTS_I_SNOC,OU=RTS Roles,DC=rts,DC=local"
 )
 
-$domains = @(
-    "fenetwork.com",
-    "corp.esa.local",
-    "rts.local"
-)
-
-#Choose Domain
-
-$defaultDomain = '0'
-
-#Functions
-function checkValidAddr {
-  param ([string]$ip)
-  
-    if([bool]($ip -as [ipaddress])){
-        return $true
-    }
-       
-    return $false
-
-}
-
-
-
-
-
-
-#Main Function
-$serverName = Read-Host 'What is the default ILO Name?'  
-$password = Read-Host 'What is the default ILO password?' -AsSecureString 
+#Main Function  
+$password = $password -AsSecureString 
 #Convert SecString to RegString
 $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($password)
 $password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
 
-do {
-Write-Host "Please choose which domain the iLO is going on:"
-Write-Host "0=>fenetwork.com,1=>corp.esa.local,2=>rts.local"
-$domainToUse = Read-Host "Press enter to accept the default [$($defaultDomain)]"
-$domainToUse = ($defaultDomain, $domainToUse)[[bool]$domainToUse]
-Write-Host $domainToUse
-} until ($("0","1","2").Contains($domainToUse))
+
+$defaultDomain = "fenetwork.com"
+$domainToUse = $defaultDomain
+#$domainToUse = ($defaultDomain, $domainToUse)[[bool]$domainToUse]
+#Write-Host $domainToUse
 
 
 $IP = Get-HPiLOServerInfo -Server $serverName -username Administrator `
@@ -86,9 +65,9 @@ $Info = Get-HPiLOFirmwareInfo -Server $serverName -username Administrator -passw
 Write-Host $Info
 
 Write-Host $IP `
-Get-HPiLOLicense -Server $IP -username Administrator -password $password `
- -DisableCertificateAuthentication | Select-Object LICENSE_KEY `
- -ExpandProperty LICENSE_KEY
+#Get-HPiLOLicense -Server $IP -username Administrator -password $password `
+# -DisableCertificateAuthentication | Select-Object LICENSE_KEY `
+# -ExpandProperty LICENSE_KEY
 
 Set-HPiLODirectory -Server $IP -username Administrator `
  -password $password -DisableCertificateAuthentication `
@@ -108,13 +87,13 @@ Set-HPiLOSchemalessDirectory -Server $IP -username Administrator `
   -Group3Name $group3NameArray[$domainToUse] `
   -Group3Priv "1,2,3" `
 
-Get-HPiLODirectory -Server $IP -Username Administrator `
--password $password -DisableCertificateAuthentication 
+#Get-HPiLODirectory -Server $IP -Username Administrator `
+#-password $password -DisableCertificateAuthentication 
 
 Set-HPiLOUser -Server $IP -Username Administrator -password $password `
  -DisableCertificateAuthentication -UserLoginToEdit Administrator -Newpassword $newpassword
 
-Write-Host "Complete"
+#Write-Host "Complete"
 #Add-HPiLOUser -Server $IP -username Administrator -password $password -DisableCertificateAuthentication -NewUsername Adbert -NewUserLogin Adbert -Newpassword $newpassword -AdminPriv Yes -RemoteConsPriv Yes -ResetServerPriv Yes -VirtualMediaPriv Yes -ConfigILOPriv Yes
 #Remove-HPiLOUser -Server $IP -username Adbert -password $newpassword -DisableCertificateAuthentication -RemoveUserLogin Administrator
 #Get-HPiLONetworkSetting -Server $IP -username Adbert -password $newpassword -DisableCertificateAuthentication | Select-Object DNS_NAME -ExpandProperty DNS_NAME
