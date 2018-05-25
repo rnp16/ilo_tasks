@@ -1,10 +1,10 @@
 {
-  "name": "seant-powershell_tasks",
+  "name": "ilo_tasks",
   "version": "0.1.0",
-  "author": "seant",
+  "author": "Rachel",
   "summary": "This module contains various tasks to execute useful Powershell snippets from the community.",
   "license": "Apache-2.0",
-  "source": "https://github.com/SeanTecha/powershell_tasks",
+  "source": "https://github.com/rnp16/ilo_tasks",
   "dependencies": [
 
   ],
@@ -14,7 +14,8 @@
       "operatingsystemrelease": [
         "2008 R2",
         "2012 R2",
-        "10"
+        "10",
+        "2016 R2"
       ]
     }
   ],
