@@ -12,35 +12,16 @@ Param(
 #$newpassword = ""
 
 #0 = FE, 1 = ESA, 2 = RTS
-$userContext1Array = @(
-"OU=Users,OU=Admin,OU=Privileged,OU=FE,DC=fenetwork,DC=com",
-"OU=Users,OU=ESA Users,DC=corp,DC=esa,DC=local",
-"OU=IT-Infrastucture,OU=Users,OU=RTS Users and Computer Objects,DC=rts,DC=local"
-)
+$userContext1Array = "OU=Users,OU=Admin,OU=Privileged,OU=FE,DC=fenetwork,DC=com"
 
-$userContext2Array = @(
-"OU=Users,OU=ADMIN,DC=fenetwork,DC=com",
-"",
-""
-)
+$userContext2Array = "OU=Users,OU=ADMIN,DC=fenetwork,DC=com"
 
-$group1NameArray = @(
-"CN=gs-unixadm,OU=SecGrps,OU=FE,DC=fenetwork,DC=com",
-"CN=ESA_I_DBA_UNIX,OU=ESA Roles,DC=corp,DC=esa,DC=local  ",
-"CN=Generic_Discover,OU=RTS Roles,DC=rts,DC=local"
-)
+$group1NameArray = "CN=GS-Admin-ServerAdmins,OU=ADMIN,DC=fenetwork,DC=com"
 
-$group2NameArray = @(
-"CN=gs-esmadm,OU=SecGrps,OU=FE,DC=fenetwork,DC=com",
-"CN=ESA_I_ESM,OU=ESA Roles,DC=corp,DC=esa,DC=local  ",
-"CN=RTS_I_DBA_UNIX,OU=RTS Roles,DC=rts,DC=local"
-)
+$group2NameArray = "CN=gs-esmadm,OU=SecGrps,OU=FE,DC=fenetwork,DC=com"
 
-$group3NameArray = @(
-"CN=gs-snocadm,OU=SecGrps,OU=FE,DC=fenetwork,DC=com",
-"CN=ESA_I_SNOC,OU=ESA Roles,DC=corp,DC=esa,DC=local",
-"CN=RTS_I_SNOC,OU=RTS Roles,DC=rts,DC=local"
-)
+$group3NameArray = "CN=gs-snocadm,OU=SecGrps,OU=FE,DC=fenetwork,DC=com"
+
 
 #Main Function  
 $password = $password -AsSecureString 
@@ -71,20 +52,20 @@ Write-Host $IP `
 
 Set-HPiLODirectory -Server $IP -username Administrator `
  -password $password -DisableCertificateAuthentication `
- -ServerAddress $domains[$domainToUse] `
- -UserContext1 $userContext1Array[$domainToUse] `
- -UserContext2 $userContext2Array[$domainToUse] `
+ -ServerAddress $domainToUse `
+ -UserContext1 $userContext1Array `
+ -UserContext2 $userContext2Array `
  -LDAPDirectoryAuthentication Use_Directory_Default_Schema `
 
 #iLO 5s have additional Permissions but no module support yet
 Set-HPiLOSchemalessDirectory -Server $IP -username Administrator `
  -password $password `
  -DisableCertificateAuthentication `
-  -Group1Name $group1NameArray[$domainToUse] `
+  -Group1Name $group1NameArray `
   -Group1Priv "1,2,3,4,5,6" `
-  -Group2Name $group2NameArray[$domainToUse] `
+  -Group2Name $group2NameArray `
   -Group2Priv "1,2,3,4,5,6" `
-  -Group3Name $group3NameArray[$domainToUse] `
+  -Group3Name $group3NameArray `
   -Group3Priv "1,2,3" `
 
 #Get-HPiLODirectory -Server $IP -Username Administrator `
